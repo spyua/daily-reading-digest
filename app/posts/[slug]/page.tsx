@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -13,6 +14,31 @@ export async function generateStaticParams() {
 }
 
 type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+  if (!post) return {};
+  return {
+    title: post.title,
+    description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      type: 'article',
+      publishedTime: post.date,
+      authors: post.author ? [post.author] : undefined,
+      tags: post.tags,
+      images: [`/og/${slug}`],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.summary,
+      images: [`/og/${slug}`],
+    },
+  };
+}
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;

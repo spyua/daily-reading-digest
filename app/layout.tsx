@@ -14,7 +14,10 @@ const notoSansTC = Noto_Sans_TC({
   variable: '--font-noto-tc',
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'Daily Reading Digest',
   description: '個人閱讀文章的結構化分析留存',
 };
