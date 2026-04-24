@@ -1,3 +1,14 @@
+---
+title: Don't Become a DevOps Engineer in 2026
+date: 2026-04-24
+topic: career-mindset
+author: Dhanush N
+source_url: https://dhanushnehru.medium.com/dont-become-a-devops-engineer-in-2026-f2e94541e700
+source_published: 2026-03-02
+summary: AI 正在壓縮傳統 DevOps 的低階執行工作，工程師該往 Platform / SRE / AI Infra 架構判斷層升級
+tags: [devops, career, sre, platform-engineering, ai-ops]
+---
+
 # Article and Discussion Analysis: Don't Become a DevOps Engineer in 2026
 
 > 產生時間：2026-04-24

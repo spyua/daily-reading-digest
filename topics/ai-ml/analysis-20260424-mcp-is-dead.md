@@ -1,3 +1,13 @@
+---
+title: MCP is Dead
+date: 2026-04-24
+topic: ai-ml
+author: Nick Babich
+source_published: 2026-04-06
+summary: 為什麼不要在 Claude Code 裡用 MCP，以及該改用什麼
+tags: [mcp, claude-code, ai-protocol, agent]
+---
+
 # Article and Discussion Analysis: MCP is Dead
 
 > 產生時間：2026-04-24
