@@ -116,3 +116,35 @@ export function getAllTags(): { tag: string; count: number }[] {
     .map(([tag, count]) => ({ tag, count }))
     .sort((a, b) => b.count - a.count);
 }
+
+export type ArchiveMonth = { month: string; count: number; posts: Post[] };
+export type ArchiveYear = { year: string; count: number; months: ArchiveMonth[] };
+
+export function groupPostsByYearMonth(posts: Post[]): ArchiveYear[] {
+  const byYear = new Map<string, Map<string, Post[]>>();
+  for (const p of posts) {
+    const [year, month] = p.date.split('-');
+    if (!year || !month) continue;
+    if (!byYear.has(year)) byYear.set(year, new Map());
+    const months = byYear.get(year)!;
+    if (!months.has(month)) months.set(month, []);
+    months.get(month)!.push(p);
+  }
+  return Array.from(byYear.entries())
+    .map(([year, months]) => ({
+      year,
+      count: Array.from(months.values()).reduce((n, arr) => n + arr.length, 0),
+      months: Array.from(months.entries())
+        .map(([month, mPosts]) => ({
+          month,
+          count: mPosts.length,
+          posts: [...mPosts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)),
+        }))
+        .sort((a, b) => (a.month < b.month ? 1 : a.month > b.month ? -1 : 0)),
+    }))
+    .sort((a, b) => (a.year < b.year ? 1 : a.year > b.year ? -1 : 0));
+}
+
+export function getArchive(): ArchiveYear[] {
+  return groupPostsByYearMonth(getAllPosts());
+}

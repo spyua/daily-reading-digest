@@ -16,6 +16,12 @@ export function SiteNav() {
           >
             topics
           </Link>
+          <Link
+            href="/archive"
+            className="text-muted-foreground hover:text-foreground transition px-2"
+          >
+            archive
+          </Link>
           <CommandPalette />
           <ThemeToggle />
         </nav>
