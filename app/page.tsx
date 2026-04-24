@@ -1,8 +1,43 @@
-export default function Home() {
+import Link from 'next/link';
+import { getAllPosts, getAllTopics } from '@/lib/posts';
+import { PostCard } from '@/components/post-card';
+
+export default function HomePage() {
+  const posts = getAllPosts();
+  const topics = getAllTopics();
+
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-8">
-      <h1 className="text-4xl font-bold">Daily Reading Digest</h1>
-      <p className="mt-4 text-lg text-gray-600">個人閱讀文章的分析留存庫</p>
+    <main className="mx-auto max-w-5xl px-6 py-16">
+      <section className="mb-16">
+        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight mb-4 leading-[1.05]">
+          Daily Reading Digest
+        </h1>
+        <p className="text-lg text-zinc-600 max-w-2xl leading-relaxed">
+          個人閱讀文章的結構化分析留存。每篇文章會拆出核心議題、方法論、啟發與盲點。
+        </p>
+      </section>
+
+      {topics.length > 0 && (
+        <section className="mb-12">
+          <div className="flex flex-wrap gap-2">
+            {topics.map(({ topic, count }) => (
+              <Link
+                key={topic}
+                href={`/topics/${topic}`}
+                className="rounded-full border border-zinc-200 px-3 py-1 text-xs font-mono hover:border-zinc-400 transition"
+              >
+                {topic} <span className="text-zinc-500">({count})</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="grid gap-4 md:grid-cols-2">
+        {posts.map((post) => (
+          <PostCard key={post.slug} post={post} />
+        ))}
+      </section>
     </main>
   );
 }
