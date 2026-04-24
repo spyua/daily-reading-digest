@@ -1,0 +1,62 @@
+import { notFound } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { getAllPosts, getPostBySlug } from '@/lib/posts';
+import { getMarkdownComponents } from '@/components/mdx-components';
+
+export async function generateStaticParams() {
+  return getAllPosts().map((p) => ({ slug: p.slug }));
+}
+
+type Props = { params: Promise<{ slug: string }> };
+
+export default async function PostPage({ params }: Props) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+  if (!post) notFound();
+
+  return (
+    <article className="mx-auto max-w-[680px] px-6 py-16">
+      <div className="text-sm text-zinc-500 font-mono mb-4">
+        {post.date} · {post.topic} · 約 {post.readingTimeMinutes} 分鐘閱讀
+      </div>
+      <h1 className="text-5xl font-semibold tracking-tight mb-6 leading-tight">
+        {post.title}
+      </h1>
+      {post.summary && (
+        <p className="text-lg text-zinc-600 mb-6 leading-relaxed">{post.summary}</p>
+      )}
+      {post.author && (
+        <div className="text-sm text-zinc-500 mb-10">
+          {post.author}
+          {post.sourceUrl && (
+            <>
+              {' · '}
+              <a
+                href={post.sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="underline decoration-zinc-300 underline-offset-2 hover:decoration-foreground"
+              >
+                原文連結
+              </a>
+            </>
+          )}
+          {post.sourcePublished && <> · 發表 {post.sourcePublished}</>}
+        </div>
+      )}
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[
+          rehypeSlug,
+          [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+        ]}
+        components={getMarkdownComponents()}
+      >
+        {post.content}
+      </ReactMarkdown>
+    </article>
+  );
+}
