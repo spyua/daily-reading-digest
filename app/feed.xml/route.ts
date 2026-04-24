@@ -1,6 +1,6 @@
 import { getAllPosts } from '@/lib/posts';
+import { SITE_URL } from '@/lib/config';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 const TITLE = 'Daily Reading Digest';
 const DESC = '個人閱讀文章的結構化分析留存';
 

@@ -5,6 +5,7 @@ import { Noto_Sans_TC } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { SiteNav } from '@/components/site-nav';
 import { PanguProvider } from '@/components/pangu-provider';
+import { SITE_URL } from '@/lib/config';
 import './globals.css';
 
 const notoSansTC = Noto_Sans_TC({
@@ -13,8 +14,6 @@ const notoSansTC = Noto_Sans_TC({
   display: 'swap',
   variable: '--font-noto-tc',
 });
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

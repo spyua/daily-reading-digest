@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Fuse from 'fuse.js';
 import Link from 'next/link';
 import type { SearchDoc } from '@/lib/search-index';
+import { withBasePath } from '@/lib/config';
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
@@ -13,7 +14,7 @@ export function CommandPalette() {
 
   useEffect(() => {
     setMac(typeof navigator !== 'undefined' && /Mac|iPhone|iPad/i.test(navigator.platform));
-    fetch('/api/search')
+    fetch(withBasePath('/api/search.json'))
       .then((r) => r.json())
       .then(setDocs)
       .catch(() => {});

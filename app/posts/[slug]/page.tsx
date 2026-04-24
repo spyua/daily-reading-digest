@@ -29,13 +29,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       authors: post.author ? [post.author] : undefined,
       tags: post.tags,
-      images: [`/og/${slug}`],
+      images: [`/og/${slug}.png`],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.summary,
-      images: [`/og/${slug}`],
+      images: [`/og/${slug}.png`],
     },
   };
 }

@@ -1,7 +1,12 @@
 import { ImageResponse } from 'next/og';
-import { getPostBySlug } from '@/lib/posts';
+import { getAllPosts, getPostBySlug } from '@/lib/posts';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-static';
+
+export async function generateStaticParams() {
+  return getAllPosts().map((p) => ({ slug: p.slug }));
+}
 
 export async function GET(
   _req: Request,
