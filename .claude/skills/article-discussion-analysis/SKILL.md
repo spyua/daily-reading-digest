@@ -34,12 +34,22 @@ description: Deeply analyze a technical article, its comment/discussion section,
 
 執行分析時，依序完成以下步驟：
 
+0. **分類與落檔計畫（動筆前必做）**：讀完輸入後，**先**決定 topic 與檔案位置，才開始分析內容：
+   1. 從合法 topic 清單選**主** topic：`ai-ml`、`devops-infra`、`product-engineering`、`career-mindset`、`misc`（判準、tie-breaking、範例見 `references/topic-taxonomy.md`）。
+   2. 跨類文章用「作者核心命題 > 讀者最大 takeaway」決定主軸，次要面向放 `tags`。
+   3. 無法 confidently 歸類 → **預設寫 `_inbox/`**（不會上站），不要用 `misc` 迴避。
+   4. 檔案規格：
+      - 路徑：`topics/<topic>/analysis-YYYYMMDD-slug.md`（或 `_inbox/analysis-YYYYMMDD-slug.md`）
+      - slug：小寫 kebab-case，取原文標題的 3~6 個英文字（中文標題自己音譯或濃縮為英文短句）
+      - `date`：**分析產出日（今天）**，不是原文發表日；原文發表日放 `source_published`
+   5. **開始寫分析前，在對話中先宣告**：「我把這篇歸到 `<topic>`，因為 ...」，讓使用者有機會在內容產出前糾正。
 1. **確認輸入類型**：判斷使用者提供的是文章全文、URL、留言、截圖、或先前討論。若只有 URL，先用 WebFetch 抓取內容。
 2. **選擇輸出格式**：依使用者需求決定用「完整版」或「精簡版」輸出（見 `assets/output-templates.md`）。
 3. **套用核心分析框架**：依 8 個步驟進行分析（見 `references/analysis-framework.md`）。
 4. **遵守品質規則**：套用 6 條 Analysis Quality Rules（見 `references/quality-rules.md`）。
 5. **產出交付物**：依使用者情境選擇適合的 Deliverable 類型（見 `references/deliverables.md`）。
-6. **最終檢查**：跑完 Final Checklist 才回覆（見本檔末段）。
+6. **落檔（寫檔案，不是貼聊天室）**：用 `Write` tool 把完整分析寫入 Step 0 決定的路徑。檔案開頭**必須**是 YAML front-matter（完整欄位規格見 `assets/output-templates.md` 的「必備：YAML Front-Matter」段）；`title` / `date` / `topic` 為必填，缺一個 `lib/posts.ts::parsePost` 會直接炸。
+7. **最終檢查**：跑完 Final Checklist 才回覆（見本檔末段）。
 
 ---
 
@@ -133,15 +143,15 @@ description: Deeply analyze a technical article, its comment/discussion section,
 
 ## Reference Files
 
+- `references/topic-taxonomy.md` — **（動筆前必讀）** 5 個合法 topic 的定義、判準、tie-breaking、範例
 - `references/analysis-framework.md` — 8 步驟分析框架完整說明與範例
 - `references/quality-rules.md` — 6 條品質規則與誤用範例
 - `references/deliverables.md` — 12 種交付物格式與使用時機
 - `references/taiwan-terminology.md` — 繁中 / 台灣技術用語對照
 - `references/example-devops-analysis.md` — DevOps 文章完整分析範例
-- `assets/output-templates.md` — 完整版 / 精簡版輸出模板
+- `assets/output-templates.md` — YAML front-matter 規格 + 完整版 / 精簡版輸出模板
 - `assets/keyword-glossary.md` — DevOps / AI 時代平台文章推薦關鍵字表
 - `assets/career-recommendation-template.md` — 職涯建議固定格式
-- `scripts/scaffold-report.sh` — 產生空白分析報告骨架
 
 ---
 
@@ -149,6 +159,7 @@ description: Deeply analyze a technical article, its comment/discussion section,
 
 回覆前必須確認：
 
+**分析品質**
 - 有抽出真正的問題（而不是只停在標題）？
 - 有重建論證結構？
 - 有把作者主張和留言反論分開？
@@ -159,6 +170,13 @@ description: Deeply analyze a technical article, its comment/discussion section,
 - 有避免盲目接受 AI 炒作？
 - 若涉及受監管產業，有考慮企業現實？
 - 有使用繁體中文與台灣技術用語？
+
+**歸類與落檔**
+- YAML front-matter 齊全？`title` / `date` / `topic` 三個必填都有？
+- `topic` 值落在 5 個合法清單內（`ai-ml` / `devops-infra` / `product-engineering` / `career-mindset` / `misc`）？沒拼錯字？
+- 檔名符合 `analysis-YYYYMMDD-slug.md`，slug 是小寫 kebab-case？
+- 檔案實際寫到 `topics/<topic>/` 或 `_inbox/`（不是 CWD、不是聊天室訊息）？
+- 有在動筆前宣告「我把這篇歸到 `<topic>`，因為 ...」讓使用者有糾正的機會？
 
 ---
 
