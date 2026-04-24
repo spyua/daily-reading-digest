@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ThemeToggle } from './theme-toggle';
+import { CommandPalette } from './command-palette';
 
 export function SiteNav() {
   return (
@@ -8,13 +9,14 @@ export function SiteNav() {
         <Link href="/" className="font-mono text-sm font-medium">
           reading-digest
         </Link>
-        <nav className="flex items-center gap-6 text-sm">
+        <nav className="flex items-center gap-3 text-sm">
           <Link
             href="/topics"
-            className="text-muted-foreground hover:text-foreground transition"
+            className="text-muted-foreground hover:text-foreground transition px-2"
           >
             topics
           </Link>
+          <CommandPalette />
           <ThemeToggle />
         </nav>
       </div>
