@@ -28,7 +28,16 @@ http
       return;
     }
     url = url.slice(BASE.length) || '/';
-    let filePath = path.join(ROOT, url);
+    // Decode URL-encoded path segments (e.g. %5Bslug%5D → [slug]) so Next's
+    // dynamic-route chunks under out/_next/static/chunks/app/posts/[slug]/
+    // resolve. GitHub Pages decodes automatically; we mirror that here.
+    let decoded;
+    try {
+      decoded = decodeURIComponent(url);
+    } catch {
+      decoded = url;
+    }
+    let filePath = path.join(ROOT, decoded);
     if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
       filePath = path.join(filePath, 'index.html');
     }
