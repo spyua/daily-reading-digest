@@ -3,8 +3,10 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { getAllPosts, getPostBySlug } from '@/lib/posts';
+import rehypeHighlight from 'rehype-highlight';
+import { getAllPosts, getPostBySlug, extractHeadings } from '@/lib/posts';
 import { getMarkdownComponents } from '@/components/mdx-components';
+import { Toc } from '@/components/toc';
 
 export async function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -17,7 +19,11 @@ export default async function PostPage({ params }: Props) {
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
+  const headings = extractHeadings(post.content);
+
   return (
+    <div className="relative">
+      <Toc headings={headings} />
     <article className="mx-auto max-w-[680px] px-6 py-16">
       <div className="text-sm text-muted-foreground font-mono mb-4">
         {post.date} · {post.topic} · 約 {post.readingTimeMinutes} 分鐘閱讀
@@ -52,11 +58,13 @@ export default async function PostPage({ params }: Props) {
         rehypePlugins={[
           rehypeSlug,
           [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+          [rehypeHighlight, { detect: true, ignoreMissing: true }],
         ]}
         components={getMarkdownComponents()}
       >
         {post.content}
       </ReactMarkdown>
     </article>
+    </div>
   );
 }

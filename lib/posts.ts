@@ -3,7 +3,28 @@ import readingTime from 'reading-time';
 import fg from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
+import GithubSlugger from 'github-slugger';
 import type { Post, PostFrontmatter } from './types';
+
+export type Heading = { depth: 2 | 3; id: string; text: string };
+
+export function extractHeadings(markdown: string): Heading[] {
+  const lines = markdown.split('\n');
+  const headings: Heading[] = [];
+  const slugger = new GithubSlugger();
+  let inFence = false;
+  for (const line of lines) {
+    if (line.trim().startsWith('```')) inFence = !inFence;
+    if (inFence) continue;
+    const m = line.match(/^(#{2,3})\s+(.+?)\s*$/);
+    if (!m) continue;
+    const depth = m[1].length as 2 | 3;
+    const text = m[2].replace(/[`*_]/g, '');
+    const id = slugger.slug(text);
+    headings.push({ depth, id, text });
+  }
+  return headings;
+}
 
 export function slugFromFilename(filename: string): string {
   const m = filename.match(/^analysis-\d{8}-(.+)\.md$/);
