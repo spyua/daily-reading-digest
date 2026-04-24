@@ -19,17 +19,17 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-[680px] px-6 py-16">
-      <div className="text-sm text-zinc-500 font-mono mb-4">
+      <div className="text-sm text-muted-foreground font-mono mb-4">
         {post.date} · {post.topic} · 約 {post.readingTimeMinutes} 分鐘閱讀
       </div>
       <h1 className="text-5xl font-semibold tracking-tight mb-6 leading-tight">
         {post.title}
       </h1>
       {post.summary && (
-        <p className="text-lg text-zinc-600 mb-6 leading-relaxed">{post.summary}</p>
+        <p className="text-lg text-muted-foreground mb-6 leading-relaxed">{post.summary}</p>
       )}
       {post.author && (
-        <div className="text-sm text-zinc-500 mb-10">
+        <div className="text-sm text-muted-foreground mb-10">
           {post.author}
           {post.sourceUrl && (
             <>
@@ -38,7 +38,7 @@ export default async function PostPage({ params }: Props) {
                 href={post.sourceUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="underline decoration-zinc-300 underline-offset-2 hover:decoration-foreground"
+                className="underline decoration-border underline-offset-2 hover:decoration-foreground"
               >
                 原文連結
               </a>

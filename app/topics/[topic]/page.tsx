@@ -16,9 +16,9 @@ export default async function TopicPage({ params }: Props) {
   return (
     <main className="mx-auto max-w-5xl px-6 py-16">
       <div className="mb-10">
-        <div className="text-sm text-zinc-500 font-mono mb-2">Topic</div>
+        <div className="text-sm text-muted-foreground font-mono mb-2">Topic</div>
         <h1 className="text-4xl font-semibold tracking-tight">{topic}</h1>
-        <p className="text-zinc-600 mt-2">{posts.length} posts</p>
+        <p className="text-muted-foreground mt-2">{posts.length} posts</p>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         {posts.map((p) => (

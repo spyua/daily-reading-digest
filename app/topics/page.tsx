@@ -14,14 +14,14 @@ export default function TopicsPage() {
             <Link
               key={topic}
               href={`/topics/${topic}`}
-              className="group rounded-lg border border-zinc-200 bg-white p-6 transition hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-sm"
+              className="group rounded-lg border border-border bg-card p-6 transition hover:-translate-y-0.5 hover:border-muted-foreground/40 hover:shadow-sm"
             >
-              <div className="text-xs text-zinc-500 font-mono mb-2">{count} posts</div>
-              <div className="text-xl font-semibold tracking-tight mb-2 group-hover:underline decoration-zinc-400 underline-offset-4">
+              <div className="text-xs text-muted-foreground font-mono mb-2">{count} posts</div>
+              <div className="text-xl font-semibold tracking-tight mb-2 group-hover:underline decoration-muted-foreground underline-offset-4">
                 {topic}
               </div>
               {latest && (
-                <div className="text-sm text-zinc-600 line-clamp-2 leading-relaxed">
+                <div className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
                   最新：{latest.title}
                 </div>
               )}

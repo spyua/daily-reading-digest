@@ -36,7 +36,7 @@ export function parsePost(args: {
     topic: fm.topic,
     author: fm.author,
     sourceUrl: fm.source_url,
-    sourcePublished: fm.source_published,
+    sourcePublished: fm.source_published ? normalizeDate(fm.source_published) : undefined,
     summary: fm.summary,
     tags: fm.tags ?? [],
     cover: fm.cover,

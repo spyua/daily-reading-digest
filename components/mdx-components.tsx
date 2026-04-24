@@ -8,16 +8,16 @@ export function getMarkdownComponents(): Components {
     p: (props) => <p className="leading-[1.75] my-5" {...props} />,
     a: (props) => (
       <a
-        className="underline decoration-zinc-400 underline-offset-4 hover:decoration-foreground"
+        className="underline decoration-muted-foreground/50 underline-offset-4 hover:decoration-foreground transition"
         {...props}
       />
     ),
-    ul: (props) => <ul className="list-disc pl-6 my-5 space-y-2" {...props} />,
-    ol: (props) => <ol className="list-decimal pl-6 my-5 space-y-2" {...props} />,
+    ul: (props) => <ul className="list-disc pl-6 my-5 space-y-2 marker:text-muted-foreground" {...props} />,
+    ol: (props) => <ol className="list-decimal pl-6 my-5 space-y-2 marker:text-muted-foreground" {...props} />,
     blockquote: (props) => (
-      <blockquote className="border-l-2 border-zinc-300 pl-4 my-5 text-zinc-600" {...props} />
+      <blockquote className="border-l-2 border-border pl-4 my-5 text-muted-foreground" {...props} />
     ),
-    hr: () => <hr className="my-10 border-zinc-200" />,
+    hr: () => <hr className="my-10 border-border" />,
     code: ({ className, children, ...props }) => {
       const isBlock = typeof className === 'string' && className.startsWith('language-');
       if (isBlock) {
@@ -28,7 +28,7 @@ export function getMarkdownComponents(): Components {
         );
       }
       return (
-        <code className="font-mono text-[0.9em] bg-zinc-100 px-1 py-0.5 rounded" {...props}>
+        <code {...props}>
           {children}
         </code>
       );
@@ -39,8 +39,8 @@ export function getMarkdownComponents(): Components {
       </div>
     ),
     th: (props) => (
-      <th className="border border-zinc-200 bg-zinc-50 px-3 py-2 text-left font-semibold" {...props} />
+      <th className="border border-border bg-muted px-3 py-2 text-left font-semibold" {...props} />
     ),
-    td: (props) => <td className="border border-zinc-200 px-3 py-2" {...props} />,
+    td: (props) => <td className="border border-border px-3 py-2" {...props} />,
   };
 }
