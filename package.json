@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "preview": "node scripts/test-gh-pages.mjs"
   },
   "engines": {
     "node": ">=20"
